@@ -1,7 +1,6 @@
-# Inherit and overwrite part of the config based on this config
 import random
 
-
+# Inherit and overwrite part of the config based on this config
 _base_ = 'yolov5_s-v61_syncbn_fast_8xb16-300e_coco.py'
 
 data_root = './data/rpod5'  # dataset root
