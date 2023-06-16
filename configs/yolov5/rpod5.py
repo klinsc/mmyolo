@@ -66,11 +66,18 @@ anchors = [
     [(353, 337), (539, 341), (443, 432)]  # P5/32
 ]
 
+img_scale = (640, 640)  # input image size
+
 # Max training 40 epoch
-max_epochs = 40
+max_epochs = 10000
+
+# The scaling factor that controls the depth of the network structure, 0.33 for YOLOv5-s
+deepen_factor = 0.1
+# The scaling factor that controls the width of the network structure, 0.5 for YOLOv5-s
+widen_factor = 0.1
 
 # bs = 12
-train_batch_size_per_gpu = 12
+train_batch_size_per_gpu = 64
 
 # dataloader num workers
 train_num_workers = 4
