@@ -66,7 +66,7 @@ anchors = [
     [(353, 337), (539, 341), (443, 432)]  # P5/32
 ]
 
-max_epochs = 2000
+max_epochs = 2000 # use 1000 and got 0.3 loss
 train_batch_size_per_gpu = 12
 train_num_workers = 4
 
