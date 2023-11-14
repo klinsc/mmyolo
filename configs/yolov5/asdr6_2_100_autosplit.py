@@ -1,4 +1,4 @@
-_base_ = "yolov5_s-v61_syncbn_fast_8xb16-300e_coco.py"
+_base_ = "yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco.py"
 
 # ========================Frequently modified parameters======================
 # -----data related-----
@@ -99,16 +99,14 @@ anchors = [
 ]
 
 max_epochs = 40
-train_batch_size_per_gpu = 12
+train_batch_size_per_gpu = 6
 train_num_workers = 4
 
-load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-v61_syncbn_fast_8xb16-300e_coco/yolov5_s-v61_syncbn_fast_8xb16-300e_coco_20220918_084700-86e02187.pth"  # noqa
+load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_20221027_215044-58865c19.pth"  # noqa
 
 model = dict(
-    backbone=dict(frozen_stages=4),
     bbox_head=dict(
         head_module=dict(num_classes=num_classes),
-        prior_generator=dict(base_sizes=anchors),
     ),
 )
 
@@ -143,7 +141,7 @@ default_hooks = dict(
     checkpoint=dict(interval=10, max_keep_ckpts=2, save_best="auto"),
     # The warmup_mim_iter parameter is critical.
     # The default value is 1000 which is not suitable for cat datasets.
-    param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=10),
+    param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
     logger=dict(type="LoggerHook", interval=5),
 )
 train_cfg = dict(max_epochs=max_epochs, val_interval=10)
