@@ -89,7 +89,14 @@ palette = [
     (204, 204, 204),
 ]
 metainfo = dict(classes=class_name, palette=palette)
-
+# Adaptive anchor based on tools/analysis_tools/optimize_anchors.py
+# python tools/analysis_tools/optimize_anchors.py configs/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_asdr6_2_100_autosplit.py --algorithm k-means --input-shape (1280,1280)
+anchors = [
+    [(7, 5), (8, 10), (9, 13)],
+    [(14, 9), (7, 29), (26, 11)],
+    [(17, 26), (41, 45), (96, 65)],
+    [(71, 131), (220, 92), (235, 287)],
+]
 
 # model related
 max_epochs = 300
@@ -99,6 +106,7 @@ load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syn
 model = dict(
     bbox_head=dict(
         head_module=dict(num_classes=num_classes),
+        prior_generator=dict(base_sizes=anchors),
     ),
 )
 train_cfg = dict(max_epochs=max_epochs, val_interval=10)
