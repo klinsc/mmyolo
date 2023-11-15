@@ -93,7 +93,7 @@ metainfo = dict(classes=class_name, palette=palette)
 
 # model related
 max_epochs = 300
-train_batch_size_per_gpu = 12
+train_batch_size_per_gpu = 16
 train_num_workers = 8
 load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_20221027_215044-58865c19.pth"
 model = dict(
