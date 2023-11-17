@@ -7,3 +7,5 @@
   - https://github.com/facebookresearch/detectron2/issues/1909
   - https://github.com/ultralytics/yolov5/issues/2720
 - Enable cudnn_benchmark for single-scale training may improve the training speed. However, it is not recommended for multi-scale training. Using by `Enable cudnn_benchmark for single-scale training` in a config file.
+
+- [YOLOv5 Study: mAP vs Batch-Size](https://github.com/ultralytics/yolov5/discussions/2452)
