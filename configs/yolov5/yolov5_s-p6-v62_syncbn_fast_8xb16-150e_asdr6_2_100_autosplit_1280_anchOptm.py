@@ -146,5 +146,16 @@ default_hooks = dict(
 
 # visualization config
 visualizer = dict(
-    vis_backends=[dict(type="LocalVisBackend"), dict(type="WandbVisBackend")]
+    vis_backends=[
+        dict(type="LocalVisBackend"),
+        dict(
+            type="WandbVisBackend",
+            init_kwargs=dict(
+                project="mmyolo-tools",
+                name="asdr-4x8b-150e-1280-optimizedAnchors(2)",
+            ),
+            interval=50,
+            log_checkpoint=True,
+        ),
+    ]
 )
