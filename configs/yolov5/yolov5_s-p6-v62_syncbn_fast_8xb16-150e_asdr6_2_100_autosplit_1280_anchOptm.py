@@ -141,17 +141,7 @@ test_evaluator = val_evaluator
 default_hooks = dict(
     checkpoint=dict(interval=10, max_keep_ckpts=2, save_best="auto"),
     param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
-    logger=[
-        dict(type="LoggerHook", interval=5),
-        dict(
-            type="MMDetWandbHook",
-            init_kwargs={"project": "mmyolo-tools"},
-            interval=50,
-            log_checkpoint=True,
-            log_checkpoint_metadata=True,
-            num_eval_images=5,
-        ),
-    ],
+    logger=dict(type="LoggerHook", interval=5),
 )
 
 # visualization config
