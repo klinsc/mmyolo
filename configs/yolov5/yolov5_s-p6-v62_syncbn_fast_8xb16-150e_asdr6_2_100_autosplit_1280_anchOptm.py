@@ -154,7 +154,7 @@ visualizer = dict(
                 project="mmyolo-tools",
                 name="asdr-4x8b-150e-1280-optimizedAnchors(2)",
             ),
-            interval=50,
+            # interval=50,
             log_checkpoint=True,
         ),
     ]
