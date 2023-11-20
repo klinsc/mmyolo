@@ -157,3 +157,6 @@ visualizer = dict(
         ),
     ]
 )
+
+# custom hooks
+custom_hooks = [dict(type="UploadCheckpointHook")]
