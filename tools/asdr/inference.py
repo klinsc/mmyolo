@@ -48,6 +48,8 @@ def main():
 
     # get filename
     filename = args.image.split("/")[-1]
+    # without .(jpg|png|jpeg)
+    filename = filename.split(".")[0]
 
     # save path
     save_path = f"outputs/{config_name}"
@@ -57,10 +59,10 @@ def main():
         os.makedirs(os.path.dirname(save_path))
 
     # check if the same filename exists in the save path
-    if os.path.exists(f"{save_path}/{filename}"):
+    if os.path.exists(f"{save_path}/{filename}.jpg"):
         # increment the filename
         i = 1
-        while os.path.exists(f"{save_path}/{filename}({i})"):
+        while os.path.exists(f"{save_path}/{filename}({i}).jpg"):
             i += 1
         filename = f"{filename}({i})"
 
@@ -71,7 +73,7 @@ def main():
         data_sample=result,
         draw_gt=False,
         wait_time=0,
-        out_file=f"{save_path}/{filename}",
+        out_file=f"{save_path}/{filename}.jpg",
     )
     visualizer.show()
 
