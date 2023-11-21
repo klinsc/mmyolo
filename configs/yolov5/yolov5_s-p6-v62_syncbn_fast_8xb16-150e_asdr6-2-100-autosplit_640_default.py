@@ -137,5 +137,9 @@ default_hooks = dict(
 
 # visualization config
 visualizer = dict(
-    vis_backends=[dict(type="LocalVisBackend"), dict(type="WandbVisBackend")]
+    vis_backends=[
+        dict(type="LocalVisBackend"),
+        dict(type="WandbVisBackend"),
+        dict(type="ClearMLVisBackend"),
+    ]
 )
