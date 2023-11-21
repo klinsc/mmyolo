@@ -1,6 +1,7 @@
 # Description: inference for asdr, take config, checkpoint, image as input, return result
 
 import argparse
+import os
 
 import cv2
 import mmcv
@@ -40,14 +41,37 @@ def main():
     # then pass to the model in init_detector
     visualizer.dataset_meta = model.dataset_meta
 
-    # show the results
+    # get config name
+    config_name = args.config.split("/")[-1]
+    # without .py
+    config_name = config_name.split(".")[0]
+
+    # get filename
+    filename = args.image.split("/")[-1]
+
+    # save path
+    save_path = f"outputs/{config_name}"
+
+    # check if save path exists
+    if not os.path.exists(os.path.dirname(save_path)):
+        os.makedirs(os.path.dirname(save_path))
+
+    # check if the same filename exists in the save path
+    if os.path.exists(f"{save_path}/{filename}"):
+        # increment the filename
+        i = 1
+        while os.path.exists(f"{save_path}/{filename}({i})"):
+            i += 1
+        filename = f"{filename}({i})"
+
+    # show the results & save the results
     visualizer.add_datasample(
         "result",
         image,
         data_sample=result,
         draw_gt=False,
         wait_time=0,
-        out_file="outputs/result.png",  # optionally, write to output file
+        out_file=f"{save_path}/{filename}",
     )
     visualizer.show()
 
