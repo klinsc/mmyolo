@@ -199,7 +199,7 @@ train_dataloader = dict(
         metainfo=metainfo,
         ann_file="annotations/train.json",
         data_prefix=dict(img="images/"),
-        pipeline=train_pipeline,
+        # pipeline=train_pipeline,
     ),
 )
 
@@ -232,8 +232,8 @@ val_dataloader = dict(
         data_root=data_root,
         ann_file="annotations/val.json",
         data_prefix=dict(img="images/"),
-        pipeline=test_pipeline,
-        batch_shapes_cfg=batch_shapes_cfg,
+        # pipeline=test_pipeline,
+        # batch_shapes_cfg=batch_shapes_cfg,
     )
 )
 
