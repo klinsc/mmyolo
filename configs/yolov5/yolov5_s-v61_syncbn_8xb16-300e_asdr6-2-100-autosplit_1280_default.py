@@ -406,14 +406,6 @@ train_cfg = dict(
 val_cfg = dict(type="ValLoop")
 test_cfg = dict(type="TestLoop")
 
-
-# hooks
-default_hooks = dict(
-    checkpoint=dict(interval=10, max_keep_ckpts=2, save_best="auto"),
-    param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
-    logger=dict(type="LoggerHook", interval=5),
-)
-
 # visualization config
 visualizer = dict(
     vis_backends=[
