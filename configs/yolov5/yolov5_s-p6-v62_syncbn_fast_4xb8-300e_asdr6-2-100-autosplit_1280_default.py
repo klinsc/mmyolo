@@ -100,6 +100,11 @@ anchors = [
     [(140, 301), (303, 264), (238, 542)],  # P5/32
     [(436, 615), (739, 380), (925, 792)],  # P6/64
 ]
+batch_shapes_cfg = dict(
+    img_size=img_scale[0],
+    # The image scale of padding should be divided by pad_size_divisor
+    size_divisor=64,
+)
 
 # model related
 max_epochs = 300
@@ -125,15 +130,15 @@ train_dataloader = dict(
         data_prefix=dict(img="images/"),
     ),
 )
-val_dataloader = dict(
-    dataset=dict(
-        metainfo=metainfo,
-        data_root=data_root,
-        ann_file="annotations/val.json",
-        data_prefix=dict(img="images/"),
-    )
-)
-test_dataloader = val_dataloader
+# val_dataloader = dict(
+#     dataset=dict(
+#         metainfo=metainfo,
+#         data_root=data_root,
+#         ann_file="annotations/val.json",
+#         data_prefix=dict(img="images/"),
+#     )
+# )
+# test_dataloader = val_dataloader
 
 val_evaluator = dict(ann_file=data_root + "annotations/val.json")
 test_evaluator = val_evaluator
@@ -209,7 +214,16 @@ test_pipeline = [
     ),
 ]
 
-val_dataloader = dict(dataset=dict(pipeline=test_pipeline, batch_shapes_cfg=None))
+val_dataloader = dict(
+    dataset=dict(
+        metainfo=metainfo,
+        data_root=data_root,
+        ann_file="annotations/val.json",
+        data_prefix=dict(img="images/"),
+        pipeline=test_pipeline,
+        batch_shapes_cfg=batch_shapes_cfg,
+    )
+)
 test_dataloader = val_dataloader
 
 
