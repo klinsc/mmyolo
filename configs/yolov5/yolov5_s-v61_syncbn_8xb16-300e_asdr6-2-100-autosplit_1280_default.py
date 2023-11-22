@@ -377,6 +377,7 @@ default_hooks = dict(
         save_best="auto",
         max_keep_ckpts=max_keep_ckpts,
     ),
+    logger=dict(type="LoggerHook", interval=5),
 )
 
 custom_hooks = [
