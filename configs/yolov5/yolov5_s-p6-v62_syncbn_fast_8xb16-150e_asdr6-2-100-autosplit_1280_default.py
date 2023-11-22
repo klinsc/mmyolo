@@ -90,6 +90,43 @@ palette = [
 ]
 metainfo = dict(classes=class_name, palette=palette)
 
+# ========================image scale related======================
+img_scale = (1280, 1280)  # width, height
+batch_shapes_cfg = dict(
+    img_size=img_scale[0],
+)
+loss_obj_weight = 1.0
+affine_scale = 0.5  # YOLOv5RandomAffine scaling ratio
+num_det_layers = 4  # The number of model output scales
+pre_transform = _base_.pre_transform
+train_pipeline = [
+    *pre_transform,
+    dict(
+        type="Mosaic", img_scale=img_scale, pad_val=114.0, pre_transform=pre_transform
+    ),
+    dict(
+        type="YOLOv5RandomAffine",
+        max_rotate_degree=0.0,
+        max_shear_degree=0.0,
+        scaling_ratio_range=(1 - affine_scale, 1 + affine_scale),
+        # img_scale is (width, height)
+        border=(-img_scale[0] // 2, -img_scale[1] // 2),
+        border_val=(114, 114, 114),
+    ),
+]
+pre_test_pipeline = _base_.pre_test_pipeline
+test_pipeline = [
+    *pre_test_pipeline,
+    dict(type="YOLOv5KeepRatioResize", scale=img_scale),
+    dict(
+        type="LetterResize",
+        scale=img_scale,
+        allow_scale_up=False,
+        pad_val=dict(img=114),
+    ),
+]
+
+
 # model related
 max_epochs = 150
 train_batch_size_per_gpu = 8  # 16/12 does not fit in 15GB
@@ -98,6 +135,10 @@ load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syn
 model = dict(
     bbox_head=dict(
         head_module=dict(num_classes=num_classes),
+        loss_obj=dict(
+            loss_weight=loss_obj_weight
+            * ((img_scale[0] / 640) ** 2 * 3 / num_det_layers)
+        ),
     ),
 )
 train_cfg = dict(max_epochs=max_epochs, val_interval=10)
@@ -120,6 +161,7 @@ val_dataloader = dict(
         data_root=data_root,
         ann_file="annotations/val.json",
         data_prefix=dict(img="images/"),
+        batch_shapes_cfg=batch_shapes_cfg,
     )
 )
 test_dataloader = val_dataloader
