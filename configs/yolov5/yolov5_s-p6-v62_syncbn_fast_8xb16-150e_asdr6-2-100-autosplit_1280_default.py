@@ -114,7 +114,7 @@ train_pipeline = [
         border_val=(114, 114, 114),
     ),
 ]
-pre_test_pipeline = _base_.test_pipeline
+pre_test_pipeline = _base_.pre_test_pipeline
 test_pipeline = [
     *pre_test_pipeline,
     dict(type="YOLOv5KeepRatioResize", scale=img_scale),
