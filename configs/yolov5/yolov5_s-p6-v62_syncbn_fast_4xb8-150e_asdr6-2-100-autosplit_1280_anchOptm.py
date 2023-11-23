@@ -230,7 +230,11 @@ test_dataloader = val_dataloader
 
 # hooks
 default_hooks = dict(
-    checkpoint=dict(interval=50, max_keep_ckpts=5, save_best="auto"),
+    checkpoint=dict(
+        type="CheckpointHook",  # Hook to save model checkpoint on specific intervals
+        interval=50,  # Save model checkpoint every 10 epochs.
+        max_keep_ckpts=3,  # The maximum checkpoints to keep.
+    ),
     param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
     logger=dict(type="LoggerHook", interval=5),
 )
