@@ -16,6 +16,9 @@ def args_parser():
     parser.add_argument("--checkpoint", type=str, help="checkpoint file path")
     parser.add_argument("--image", type=str, help="image file path")
     parser.add_argument(
+        "--threshold", type=float, help="threshold for nms", default=0.3
+    )
+    parser.add_argument(
         "--device",
         type=str,
         default="cuda:0",
@@ -50,6 +53,8 @@ def main():
     filename = args.image.split("/")[-1]
     # without .(jpg|png|jpeg)
     filename = filename.split(".")[0]
+    # add threshold
+    filename = f"{filename}_{args.threshold}"
 
     # save path
     save_path = f"outputs/{config_name}"
@@ -74,6 +79,7 @@ def main():
         draw_gt=False,
         wait_time=0,
         out_file=f"{save_path}/{filename}.jpg",
+        pred_score_thr=args.threshold,
     )
     visualizer.show()
 
