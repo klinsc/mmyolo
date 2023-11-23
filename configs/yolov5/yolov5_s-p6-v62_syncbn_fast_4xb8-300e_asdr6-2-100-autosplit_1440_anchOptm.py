@@ -92,7 +92,7 @@ metainfo = dict(classes=class_name, palette=palette)
 
 # This configuration is used to provide non-square training examples
 # Must be a multiple of 32
-img_scale = (1440, 1440)  # w h
+img_scale = (1920, 1920)  # w h
 # Adaptive anchor based on tools/analysis_tools/optimize_anchors.py
 # python tools/analysis_tools/optimize_anchors.py configs/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_asdr6_2_100_autosplit.py --algorithm k-means --input-shape (1280,1280)
 anchors = [
