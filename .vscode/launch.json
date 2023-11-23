@@ -1,0 +1,71 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    // {
+    //   "name": "SetModel",
+    //   "type": "PowerShell",
+    //   "request": "launch",
+    //   "script": "Set-Variable -Name \"desc\" -Value \"A description\""
+    // },
+    // {
+    //   "name": "PrintModel",
+    //   "type": "PowerShell",
+    //   "request": "launch",
+    //   "script": "Get-Variable -Name \"desc\""
+    // },
+    // {
+    //   "name": "SetModel",
+    //   "type": "PowerShell",
+    //   "request": "launch",
+    //   "script": "Set-Variable -Name \"desc\" -Value \"A description\""
+    // },
+    {
+      "name": "PrintModel",
+      "type": "PowerShell",
+      "request": "launch",
+      "script": "Get-Variable -Name \"desc\""
+    },
+    {
+      "name": "trainYOLO-ASDR",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/train.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "configs/yolov5/yolov5_s-p6-v62_syncbn_fast_4xb8-300e_asdr6-2-100-autosplit_1280_default.py"
+    },
+    {
+      "name": "testYOLO-ASDR",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/test.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "configs/yolov5/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.py models/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.pth --out results/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.pkl"
+    },
+    {
+      "name": "confusionMatrixYOLO-ASDR",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/analysis_tools/confusion_matrix.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {
+        "MMYOLO_MODEL": "yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm"
+      },
+      "args": "configs/yolov5/${MMYOLO_MODEL}.py outputs/${env:MMYOLO_MODEL}/result.pkl outputs/${env:MMYOLO_MODEL}"
+    },
+    {
+      "name": "inference-ASDR",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/asdr/inference.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "--threshold=0.8 --config=configs/yolov5/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.py --checkpoint models/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
+    }
+  ]
+}
