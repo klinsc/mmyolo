@@ -239,7 +239,7 @@ default_hooks = dict(
 visualizer = dict(
     vis_backends=[
         dict(type="LocalVisBackend"),
-        dict(type="WandbVisBackend"),
-        dict(type="ClearMLVisBackend"),
+        dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
+        dict(type="ClearMLVisBackend", init_kwargs=dict(project_name="mmyolo-tools")),
     ]
 )
