@@ -229,7 +229,7 @@ test_dataloader = val_dataloader
 
 # hooks
 default_hooks = dict(
-    checkpoint=dict(interval=10, max_keep_ckpts=2, save_best="auto"),
+    checkpoint=dict(interval=50, max_keep_ckpts=5, save_best="auto"),
     param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
     logger=dict(type="LoggerHook", interval=5),
 )
