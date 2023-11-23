@@ -109,8 +109,10 @@ batch_shapes_cfg = dict(
 
 # model related
 max_epochs = 300
-train_batch_size_per_gpu = 6  # 16/12 does not fit in 15GB, 8 does not fit for 1920x1920
-train_num_workers = 3  # 8/6 does not fit in 15GB, 4 does not fit for 1920x1920
+train_batch_size_per_gpu = (
+    4  # 16/12 does not fit in 15GB, 8/6 does not fit for 1920x1920
+)
+train_num_workers = 2  # 8/6 does not fit in 15GB, 4/3 does not fit for 1920x1920
 load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_20221027_215044-58865c19.pth"
 model = dict(
     bbox_head=dict(
