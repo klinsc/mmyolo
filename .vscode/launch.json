@@ -50,7 +50,7 @@
       "program": "tools/asdr/inference.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "--threshold=0.8 --config=configs/yolov5/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.py --checkpoint models/yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
+      "args": "--threshold=0.3 --config=configs/yolov5/${config:MMYOLO_MODEL}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
     }
   ]
 }
