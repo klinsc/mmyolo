@@ -119,7 +119,7 @@ model = dict(
         head_module=dict(num_classes=num_classes),
     ),
 )
-train_cfg = dict(max_epochs=max_epochs, val_interval=50)
+train_cfg = dict(max_epochs=max_epochs, val_interval=10)
 
 
 # train val related
@@ -235,7 +235,7 @@ default_hooks = dict(
     checkpoint=dict(
         type="CheckpointHook",  # Hook to save model checkpoint on specific intervals
         interval=50,  # Save model checkpoint every 10 epochs.
-        max_keep_ckpts=3,  # The maximum checkpoints to keep.
+        max_keep_ckpts=10,  # The maximum checkpoints to keep.
     ),
     param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
     logger=dict(type="LoggerHook", interval=5),
