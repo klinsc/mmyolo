@@ -383,7 +383,7 @@ param_scheduler = [
 default_hooks = dict(
     checkpoint=dict(
         type="CheckpointHook",  # Hook to save model checkpoint on specific intervals
-        interval=50,  # Save model checkpoint every 10 epochs.
+        interval=10,  # Save model checkpoint every 10 epochs.
         max_keep_ckpts=100,  # The maximum checkpoints to keep.
     ),
     logger=dict(type="LoggerHook", interval=5),
@@ -408,7 +408,7 @@ custom_hooks = [
 train_cfg = dict(
     type="EpochBasedTrainLoop",
     max_epochs=max_epochs,
-    val_interval=save_checkpoint_intervals,
+    val_interval=1,
     dynamic_intervals=[(max_epochs - num_epochs_stage2, val_interval_stage2)],
 )
 
