@@ -93,9 +93,9 @@ metainfo = dict(classes=class_name, palette=palette)
 
 
 # Batch size of a single GPU during training
-train_batch_size_per_gpu = 4
+train_batch_size_per_gpu = 2
 # Worker to pre-fetch data for each single GPU during training
-train_num_workers = 8
+train_num_workers = 4
 # persistent_workers must be False if num_workers is 0.
 persistent_workers = True
 
@@ -128,9 +128,9 @@ mixup_max_cached_images = 20
 # Dataset type, this will be used to define the dataset
 dataset_type = "YOLOv5CocoDataset"
 # Batch size of a single GPU during validation
-val_batch_size_per_gpu = 8
+val_batch_size_per_gpu = 1
 # Worker to pre-fetch data for each single GPU during validation
-val_num_workers = 16
+val_num_workers = 2
 
 # Config of batch shapes. Only on val.
 batch_shapes_cfg = dict(
