@@ -93,7 +93,7 @@ metainfo = dict(classes=class_name, palette=palette)
 
 
 # Batch size of a single GPU during training
-train_batch_size_per_gpu = 8
+train_batch_size_per_gpu = 4
 # Worker to pre-fetch data for each single GPU during training
 train_num_workers = 8
 # persistent_workers must be False if num_workers is 0.
@@ -118,7 +118,7 @@ model_test_cfg = dict(
 
 # ========================Possible modified parameters========================
 # -----data related-----
-img_scale = (640, 640)  # width, height
+img_scale = (1280, 1280)  # width, height
 # ratio range for random resize
 random_resize_ratio_range = (0.1, 2.0)
 # Cached images number in mosaic
@@ -340,6 +340,7 @@ val_dataloader = dict(
         test_mode=True,
         batch_shapes_cfg=batch_shapes_cfg,
         pipeline=test_pipeline,
+        metainfo=metainfo,
     ),
 )
 
