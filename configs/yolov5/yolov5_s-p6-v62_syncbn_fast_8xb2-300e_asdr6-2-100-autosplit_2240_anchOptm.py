@@ -239,11 +239,22 @@ default_hooks = dict(
     logger=dict(type="LoggerHook", interval=5),
 )
 
-# visualization config
-visualizer = dict(
-    vis_backends=[
+# get env "MMYOLO_TEST"
+import os
+
+isTest = os.environ.get("MMYOLO_TEST", "false").lower() == "true"
+
+vis_backend = None
+if isTest:
+    vis_backend = [dict(type="LocalVisBackend")]
+else:
+    vis_backend = [
         dict(type="LocalVisBackend"),
         dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
         dict(type="ClearMLVisBackend", init_kwargs=dict(project_name="mmyolo-tools")),
     ]
+
+# visualization config
+visualizer = dict(
+    vis_backends=vis_backend,
 )
