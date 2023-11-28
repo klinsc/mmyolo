@@ -5,25 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "SetModel",
-      "type": "PowerShell",
-      "request": "launch",
-      "script": "Set-Variable -Name \"MMYOLO_MODEL\" -Value \"yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-100-autosplit_1280_anchOptm\""
-    },
-    {
-      "name": "PrintModel",
-      "type": "PowerShell",
-      "request": "launch",
-      "script": "Get-Variable -Name \"MMYOLO_MODEL\""
-    },
-    {
       "name": "trainYOLO-ASDR",
       "type": "python",
       "request": "launch",
       "program": "tools/train.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "configs/yolov5/yolov5_s-p6-v62_syncbn_fast_4xb8-300e_asdr6-2-100-autosplit_1280_default.py"
+      "args": "configs/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-10e_asdr6-2-100-autosplit_320_anchOptm_testJsonLog.py"
     },
     {
       "name": "testYOLO-ASDR",
@@ -32,7 +20,10 @@
       "program": "tools/test.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "configs/yolov5/${config:MMYOLO_MODEL}.py models/${config:MMYOLO_MODEL}.pth --out outputs/${config:MMYOLO_MODEL}/result.pkl"
+      "env": {
+        "MMYOLO_TEST": "true"
+      },
+      "args": "configs/yolov5/${config:MMYOLO_CONFIG}.py models/${config:MMYOLO_MODEL}.pth --out outputs/${config:MMYOLO_OUTPUT}/result.pkl"
     },
     {
       "name": "confusionMatrixYOLO-ASDR",
@@ -41,7 +32,7 @@
       "program": "tools/analysis_tools/confusion_matrix.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "configs/yolov5/${config:MMYOLO_MODEL}.py outputs/${config:MMYOLO_MODEL}/result.pkl outputs/${config:MMYOLO_MODEL}"
+      "args": "configs/yolov5/${config:MMYOLO_CONFIG}.py outputs/${config:MMYOLO_MODEL}/result.pkl outputs/${config:MMYOLO_OUTPUT}"
     },
     {
       "name": "inference-ASDR",
@@ -50,7 +41,7 @@
       "program": "tools/asdr/inference.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "--threshold=0.3 --config=configs/yolov5/${config:MMYOLO_MODEL}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
+      "args": "--threshold=0.3 --config=configs/yolov5/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
     }
   ]
 }
