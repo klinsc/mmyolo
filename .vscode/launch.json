@@ -11,7 +11,10 @@
       "program": "tools/train.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "configs/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-10e_asdr6-2-100-autosplit_320_anchOptm_testJsonLog.py"
+      "env": {
+        "MMYOLO_TEST": "true"
+      },
+      "args": "configs/rtmdet/rtmdet_l_syncbn_fast_8xb32-300e_asdr.py"
     },
     {
       "name": "testYOLO-ASDR",
