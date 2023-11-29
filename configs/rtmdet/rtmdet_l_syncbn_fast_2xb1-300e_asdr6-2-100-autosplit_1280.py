@@ -93,9 +93,9 @@ metainfo = dict(classes=class_name, palette=palette)
 
 
 # Batch size of a single GPU during training
-train_batch_size_per_gpu = 1
+train_batch_size_per_gpu = 2
 # Worker to pre-fetch data for each single GPU during training
-train_num_workers = 2
+train_num_workers = 4
 # persistent_workers must be False if num_workers is 0.
 persistent_workers = True
 
@@ -257,13 +257,13 @@ train_pipeline = [
         resize_type="mmdet.Resize",
         keep_ratio=True,
     ),
-    dict(type="mmdet.RandomCrop", crop_size=img_scale),
-    dict(type="mmdet.YOLOXHSVRandomAug"),
+    # dict(type="mmdet.RandomCrop", crop_size=img_scale),
+    # dict(type="mmdet.YOLOXHSVRandomAug"),
     dict(type="mmdet.RandomFlip", prob=0.5),
-    dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
-    dict(
-        type="YOLOv5MixUp", use_cached=True, max_cached_images=mixup_max_cached_images
-    ),
+    # dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
+    # dict(
+    #     type="YOLOv5MixUp", use_cached=True, max_cached_images=mixup_max_cached_images
+    # ),
     dict(type="mmdet.PackDetInputs"),
 ]
 
@@ -278,9 +278,9 @@ train_pipeline_stage2 = [
         keep_ratio=True,
     ),
     dict(type="mmdet.RandomCrop", crop_size=img_scale),
-    dict(type="mmdet.YOLOXHSVRandomAug"),
+    # dict(type="mmdet.YOLOXHSVRandomAug"),
     dict(type="mmdet.RandomFlip", prob=0.5),
-    dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
+    # dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
     dict(type="mmdet.PackDetInputs"),
 ]
 
