@@ -14,7 +14,7 @@
       "env": {
         "MMYOLO_TEST": "true"
       },
-      "args": "configs/rtmdet/rtmdet_l_syncbn_fast_8xb32-300e_asdr.py"
+      "args": "configs/rtmdet/rtmdet_tiny_fast_1xb12-40e_cat.py"
     },
     {
       "name": "testYOLO-ASDR",
@@ -26,7 +26,7 @@
       "env": {
         "MMYOLO_TEST": "true"
       },
-      "args": "configs/yolov5/${config:MMYOLO_CONFIG}.py models/${config:MMYOLO_MODEL}.pth --out outputs/${config:MMYOLO_OUTPUT}/result.pkl"
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py models/${config:MMYOLO_MODEL}.pth --out outputs/${config:MMYOLO_OUTPUT}/result.pkl"
     },
     {
       "name": "confusionMatrixYOLO-ASDR",
@@ -35,7 +35,7 @@
       "program": "tools/analysis_tools/confusion_matrix.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "configs/yolov5/${config:MMYOLO_CONFIG}.py outputs/${config:MMYOLO_MODEL}/result.pkl outputs/${config:MMYOLO_OUTPUT}"
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py outputs/${config:MMYOLO_MODEL}/result.pkl outputs/${config:MMYOLO_OUTPUT}"
     },
     {
       "name": "inference-ASDR",
@@ -44,7 +44,10 @@
       "program": "tools/asdr/inference.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "--threshold=0.3 --config=configs/yolov5/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
+      "env": {
+        "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}"
+      },
+      "args": "--threshold=0.3 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
     }
   ]
 }
