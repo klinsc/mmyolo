@@ -93,7 +93,7 @@ metainfo = dict(classes=class_name, palette=palette)
 
 
 # Batch size of a single GPU during training
-train_batch_size_per_gpu = 2
+train_batch_size_per_gpu = 1
 # Worker to pre-fetch data for each single GPU during training
 train_num_workers = 4
 # persistent_workers must be False if num_workers is 0.
