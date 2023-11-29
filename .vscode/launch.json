@@ -47,7 +47,7 @@
       "env": {
         "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}"
       },
-      "args": "--threshold=0.3 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=data/asdr6_2_100_autosplit/inferences/utg-UThong-m-mt.jpg"
+      "args": "--threshold=0.3 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
     }
   ]
 }
