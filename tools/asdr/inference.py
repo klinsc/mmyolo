@@ -57,7 +57,7 @@ def main():
     filename = f"{filename}_{args.threshold}"
 
     # save path
-    save_path = f"outputs/{config_name}"
+    save_path = f"outputs/{os.getenv('MMYOLO_OUTPUT')}"
 
     # check if save path exists
     if not os.path.exists(os.path.dirname(save_path)):
