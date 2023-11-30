@@ -37,7 +37,7 @@ model_test_cfg = dict(
 
 # ========================Possible modified parameters========================
 # -----data related-----
-img_scale = (1280, 1280)  # width, height
+img_scale = (960, 960)  # width, height
 # ratio range for random resize
 random_resize_ratio_range = (0.1, 2.0)
 # Cached images number in mosaic
