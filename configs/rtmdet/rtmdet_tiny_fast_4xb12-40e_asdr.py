@@ -85,8 +85,8 @@ metainfo = dict(classes=class_name, palette=palette)
 num_epochs_stage2 = 5
 
 max_epochs = 40
-train_batch_size_per_gpu = 6
-train_num_workers = 2
+train_batch_size_per_gpu = 12
+train_num_workers = 4
 val_batch_size_per_gpu = 1
 val_num_workers = 2
 
