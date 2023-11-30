@@ -148,7 +148,7 @@ val_evaluator = dict(ann_file=data_root + "annotations/val.json")
 test_evaluator = val_evaluator
 
 default_hooks = dict(
-    checkpoint=dict(interval=10, max_keep_ckpts=2, save_best="auto"),
+    checkpoint=dict(interval=10, max_keep_ckpts=100, save_best="auto"),
     logger=dict(type="LoggerHook", interval=5),
 )
 train_cfg = dict(max_epochs=max_epochs, val_interval=10)
