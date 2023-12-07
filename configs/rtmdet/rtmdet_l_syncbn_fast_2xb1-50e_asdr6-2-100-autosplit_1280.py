@@ -258,12 +258,12 @@ train_pipeline = [
         keep_ratio=True,
     ),
     dict(type="mmdet.RandomCrop", crop_size=img_scale),
-    # dict(type="mmdet.YOLOXHSVRandomAug"),
+    dict(type="mmdet.YOLOXHSVRandomAug"),
     dict(type="mmdet.RandomFlip", prob=0.5),
     dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
-    # dict(
-    #     type="YOLOv5MixUp", use_cached=True, max_cached_images=mixup_max_cached_images
-    # ),
+    dict(
+        type="YOLOv5MixUp", use_cached=True, max_cached_images=mixup_max_cached_images
+    ),
     dict(type="mmdet.PackDetInputs"),
 ]
 
@@ -278,7 +278,7 @@ train_pipeline_stage2 = [
         keep_ratio=True,
     ),
     dict(type="mmdet.RandomCrop", crop_size=img_scale),
-    # dict(type="mmdet.YOLOXHSVRandomAug"),
+    dict(type="mmdet.YOLOXHSVRandomAug"),
     dict(type="mmdet.RandomFlip", prob=0.5),
     dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
     dict(type="mmdet.PackDetInputs"),

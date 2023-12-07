@@ -50,12 +50,13 @@ train_pipeline = [
     dict(type="mmdet.YOLOXHSVRandomAug"),
     dict(type="mmdet.RandomFlip", prob=0.5),
     dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
-    # dict(
-    #     type='YOLOv5MixUp',
-    #     use_cached=True,
-    #     random_pop=False,
-    #     max_cached_images=mixup_max_cached_images,
-    #     prob=0.5),
+    dict(
+        type="YOLOv5MixUp",
+        use_cached=True,
+        random_pop=False,
+        max_cached_images=mixup_max_cached_images,
+        prob=0.5,
+    ),
     dict(type="mmdet.PackDetInputs"),
 ]
 
