@@ -35,6 +35,9 @@
       "program": "tools/analysis_tools/confusion_matrix.py",
       "console": "integratedTerminal",
       "justMyCode": false,
+      "env": {
+        "MMYOLO_TEST": "true"
+      },
       "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py outputs/${config:MMYOLO_MODEL}/result.pkl outputs/${config:MMYOLO_OUTPUT}"
     },
     {
@@ -45,9 +48,49 @@
       "console": "integratedTerminal",
       "justMyCode": false,
       "env": {
+        "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}",
+        "MMYOLO_TEST": "true"
+      },
+      "args": "--threshold=0.5 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
+    },
+    {
+      "name": "dataset_analysis:train",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/analysis_tools/dataset_analysis.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "--out-dir ./dataset_analysis/${config:MMYOLO_CONFIG}/train configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
+    },
+    {
+      "name": "dataset_analysis:val",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/analysis_tools/dataset_analysis.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "--val-dataset --out-dir ./dataset_analysis/${config:MMYOLO_CONFIG}/val configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
+    },
+    {
+      "name": "browse_coco_json-train",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "env": {
         "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}"
       },
-      "args": "--threshold=0.3 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
+      "program": "tools/analysis_tools/browse_coco_json.py",
+      "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/train.json --shuffle --wait-time 100 --category-names 115_1way_ds_w_motor"
+    },
+    {
+      "name": "browe_coco_json:val",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/analysis_tools/browse_coco_json.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/val.json --shuffle --wait-time 10 --category-names 115_1way_ds_w_motor"
     }
   ]
 }
