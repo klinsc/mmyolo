@@ -232,8 +232,8 @@ test_dataloader = val_dataloader
 default_hooks = dict(
     checkpoint=dict(
         type="CheckpointHook",  # Hook to save model checkpoint on specific intervals
-        interval=50,  # Save model checkpoint every 10 epochs.
-        max_keep_ckpts=3,  # The maximum checkpoints to keep.
+        interval=25,  # Save model checkpoint every 10 epochs.
+        max_keep_ckpts=100,  # The maximum checkpoints to keep.
     ),
     param_scheduler=dict(max_epochs=max_epochs, warmup_mim_iter=1000),
     logger=dict(type="LoggerHook", interval=5),
@@ -244,6 +244,5 @@ visualizer = dict(
     vis_backends=[
         dict(type="LocalVisBackend"),
         dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
-        dict(type="ClearMLVisBackend", init_kwargs=dict(project_name="mmyolo-tools")),
     ]
 )
