@@ -383,7 +383,7 @@ param_scheduler = [
 default_hooks = dict(
     checkpoint=dict(
         type="CheckpointHook",  # Hook to save model checkpoint on specific intervals
-        interval=10,  # Save model checkpoint every 10 epochs.
+        interval=25,  # Save model checkpoint every 10 epochs.
         max_keep_ckpts=100,  # The maximum checkpoints to keep.
     ),
     logger=dict(type="LoggerHook", interval=5),
@@ -427,7 +427,6 @@ else:
     vis_backend = [
         dict(type="LocalVisBackend"),
         dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
-        dict(type="ClearMLVisBackend", init_kwargs=dict(project_name="mmyolo-tools")),
     ]
 
 # visualization config
