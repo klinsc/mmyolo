@@ -86,9 +86,9 @@ metainfo = dict(classes=class_name, palette=palette)
 
 num_epochs_stage2 = 20
 
-max_epochs = 300
-train_batch_size_per_gpu = 8
-train_num_workers = 4
+max_epochs = 150
+train_batch_size_per_gpu = 3
+train_num_workers = 2
 val_batch_size_per_gpu = 1
 val_num_workers = 2
 
@@ -150,10 +150,13 @@ val_evaluator = dict(ann_file=data_root + "annotations/val.json")
 test_evaluator = val_evaluator
 
 default_hooks = dict(
-    checkpoint=dict(interval=10, max_keep_ckpts=2, save_best="auto"),
+    checkpoint=dict(interval=25, max_keep_ckpts=100, save_best="auto"),
     logger=dict(type="LoggerHook", interval=5),
 )
 train_cfg = dict(max_epochs=max_epochs, val_interval=10)
 visualizer = dict(
-    vis_backends=[dict(type="LocalVisBackend"), dict(type="WandbVisBackend")]
+    vis_backends=[
+        dict(type="LocalVisBackend"),
+        dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
+    ]
 )  # noqa
