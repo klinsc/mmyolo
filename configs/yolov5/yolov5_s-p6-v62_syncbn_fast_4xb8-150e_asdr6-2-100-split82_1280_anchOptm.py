@@ -1,7 +1,7 @@
 _base_ = "yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco.py"
 
 # data related
-data_root = "data/asdr6_2_100_split82/"
+data_root = "data/asdr6-2-100-split82/"
 
 train_ann_file = "annotations/train.json"
 train_data_prefix = "images/"
