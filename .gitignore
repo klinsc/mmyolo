@@ -124,3 +124,5 @@ yolov5-6.1/
 *.pt
 *.py~
 *.sh~
+
+outputs/
