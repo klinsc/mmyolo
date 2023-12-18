@@ -342,6 +342,16 @@ def show_data_list(args, area_rule):
     print(data_info)
 
 
+def print_total_image_num(dataset):
+    """Print the total number of images in the dataset."""
+    print("\n\nPrint the total number of images in the dataset:")
+    total_image_num = 0
+    for index in range(len(dataset)):
+        total_image_num += 1
+    print(f"Total image num: {total_image_num}")
+    print("End")
+
+
 def main():
     args = parse_args()
     cfg = Config.fromfile(args.config)
@@ -486,6 +496,8 @@ def main():
         show_bbox_area(args.out_dir, fig_set, area_rule, class_name, bbox_area_num)
     else:
         raise RuntimeError("Please enter the correct func name, e.g., show_bbox_num")
+
+    print_total_image_num(dataset)
 
 
 if __name__ == "__main__":
