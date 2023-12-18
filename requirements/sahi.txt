@@ -1,1 +1,4 @@
 sahi>=0.11.4
+chardet
+platformdirs
+packaging
