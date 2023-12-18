@@ -344,12 +344,17 @@ def show_data_list(args, area_rule):
 
 def print_total_image_num(dataset):
     """Print the total number of images in the dataset."""
-    print("\n\nPrint the total number of images in the dataset:")
     total_image_num = 0
     for index in range(len(dataset)):
         total_image_num += 1
     print(f"Total image num: {total_image_num}")
-    print("End")
+
+    # print background image num
+    background_image_num = 0
+    for index in range(len(dataset)):
+        if dataset[index]["instances"] == []:
+            background_image_num += 1
+    print(f"Background image num: {background_image_num}")
 
 
 def main():
