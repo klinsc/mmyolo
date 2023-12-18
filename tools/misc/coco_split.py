@@ -54,6 +54,19 @@ def split_coco_dataset(
     coco = COCO(coco_json_path)
     coco_image_ids = coco.getImgIds()
 
+    # filter background image
+    coco_image_ids = coco.getImgIds()
+    background_image_ids = []
+    for img_id in coco_image_ids:
+        ann_ids = coco.getAnnIds(imgIds=img_id)
+        if len(ann_ids) == 0:
+            background_image_ids.append(img_id)
+    print(f"Find {len(background_image_ids)} background images.")
+
+    # remove background image
+    for img_id in background_image_ids:
+        coco_image_ids.remove(img_id)
+
     # gen image number of each dataset
     val_image_num = int(len(coco_image_ids) * ratio_val)
     test_image_num = int(len(coco_image_ids) * ratio_test)
@@ -65,6 +78,18 @@ def split_coco_dataset(
         f"Test ratio = {ratio_test}, number = {test_image_num}"
     )
 
+    val_background_num = int(len(background_image_ids) * ratio_val)
+    test_background_num = int(len(background_image_ids) * ratio_test)
+    train_background_num = (
+        len(background_image_ids) - val_background_num - test_background_num
+    )
+    print(
+        "Split background info: ====== \n"
+        f"Train background ratio = {ratio_train}, number = {train_background_num}\n"
+        f"Val background ratio = {ratio_val}, number = {val_background_num}\n"
+        f"Test background ratio = {ratio_test}, number = {test_background_num}"
+    )
+
     seed = int(seed)
     if seed != -1:
         print(f"Set the global seed: {seed}")
@@ -73,6 +98,7 @@ def split_coco_dataset(
     if shuffle:
         print("shuffle dataset.")
         random.shuffle(coco_image_ids)
+        random.shuffle(background_image_ids)
 
     # split each dataset
     train_image_ids = coco_image_ids[:train_image_num]
@@ -83,6 +109,24 @@ def split_coco_dataset(
     else:
         val_image_ids = None
     test_image_ids = coco_image_ids[train_image_num + val_image_num :]
+
+    # split background dataset
+    train_background_ids = background_image_ids[:train_background_num]
+    if val_background_num != 0:
+        val_background_ids = background_image_ids[
+            train_background_num : train_background_num + val_background_num
+        ]
+    else:
+        val_background_ids = None
+    test_background_ids = background_image_ids[
+        train_background_num + val_background_num :
+    ]
+
+    # merge dataset
+    train_image_ids.extend(train_background_ids)
+    if val_image_ids is not None:
+        val_image_ids.extend(val_background_ids)
+    test_image_ids.extend(test_background_ids)
 
     # Save new json
     categories = coco.loadCats(coco.getCatIds())
