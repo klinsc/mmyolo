@@ -31,6 +31,13 @@ def show_coco_json(args):
     if args.shuffle:
         np.random.shuffle(image_ids)
 
+    if args.image is not None:
+        # get all image names
+        image_names = list(map(lambda img: img["file_name"], coco.loadImgs(image_ids)))
+        # get image id for the image name
+        image_id = image_ids[image_names.index(args.image)]
+        image_ids = [image_id]
+
     for i in range(len(image_ids)):
         image_data = coco.loadImgs(image_ids[i])[0]
         if args.data_root is not None:
@@ -141,6 +148,14 @@ def parse_args():
     parser.add_argument(
         "--shuffle", action="store_true", help="Whether to display in disorder"
     )
+    # filtering with class's area (small, medium, large)
+    parser.add_argument(
+        "--image",
+        type=str,
+        default=None,
+        help="image name to display",
+    )
+
     args = parser.parse_args()
     return args
 
