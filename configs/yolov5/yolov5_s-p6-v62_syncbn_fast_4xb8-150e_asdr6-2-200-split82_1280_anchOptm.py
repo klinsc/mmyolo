@@ -240,9 +240,19 @@ default_hooks = dict(
 )
 
 # visualization config
-visualizer = dict(
-    vis_backends=[
+import os
+
+isTest = os.environ.get("MMYOLO_TEST", "false").lower() == "true"
+vis_backend = None
+if isTest:
+    vis_backend = [dict(type="LocalVisBackend")]
+else:
+    vis_backend = [
         dict(type="LocalVisBackend"),
         dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
     ]
+
+# visualization config
+visualizer = dict(
+    vis_backends=vis_backend,
 )
