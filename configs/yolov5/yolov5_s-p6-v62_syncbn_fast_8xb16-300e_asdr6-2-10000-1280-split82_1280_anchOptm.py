@@ -140,7 +140,9 @@ _base_.model.bbox_head.loss_obj.loss_weight = 1.0 * ((img_scale[1] / 640) ** 2)
 _base_.model.bbox_head.prior_generator.base_sizes = anchors
 
 train_pipeline = [
-    *_base_.pre_transform,
+    # *_base_.pre_transform,
+    dict(type="LoadImageFromFile", backend_args=_base_.backend_args),
+    dict(type="LoadAnnotations", with_bbox=True),
     # dict(
     #     type="Mosaic",
     #     img_scale=img_scale,
@@ -169,17 +171,17 @@ train_pipeline = [
     # ),
     # dict(type="YOLOv5HSVRandomAug"),
     # dict(type="mmdet.RandomFlip", prob=0.5),
-    # dict(
-    #     type="mmdet.PackDetInputs",
-    #     meta_keys=(
-    #         "img_id",
-    #         "img_path",
-    #         "ori_shape",
-    #         "img_shape",
-    #         "flip",
-    #         "flip_direction",
-    #     ),
-    # ),
+    dict(
+        type="mmdet.PackDetInputs",
+        meta_keys=(
+            "img_id",
+            "img_path",
+            "ori_shape",
+            "img_shape",
+            "flip",
+            "flip_direction",
+        ),
+    ),
 ]
 
 _base_.train_dataloader.dataset.pipeline = train_pipeline
