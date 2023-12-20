@@ -141,13 +141,13 @@ _base_.model.bbox_head.prior_generator.base_sizes = anchors
 
 train_pipeline = [
     *_base_.pre_transform,
-    # dict(
-    #     type="Mosaic",
-    #     img_scale=img_scale,
-    #     pad_val=114.0,
-    #     pre_transform=_base_.pre_transform,
-    #     bbox_clip_border=False,
-    # ),
+    dict(
+        type="Mosaic",
+        img_scale=img_scale,
+        pad_val=114.0,
+        pre_transform=_base_.pre_transform,
+        bbox_clip_border=False,
+    ),
     # dict(
     #     type="YOLOv5RandomAffine",
     #     max_rotate_degree=0.0,
