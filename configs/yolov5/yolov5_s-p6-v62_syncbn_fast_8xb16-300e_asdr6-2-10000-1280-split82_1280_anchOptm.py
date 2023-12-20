@@ -157,29 +157,29 @@ train_pipeline = [
     #     border=(-img_scale[0] // 2, -img_scale[1] // 2),
     #     border_val=(114, 114, 114),
     # ),
-    dict(
-        type="mmdet.Albu",
-        transforms=_base_.albu_train_transforms,
-        bbox_params=dict(
-            type="BboxParams",
-            format="pascal_voc",
-            label_fields=["gt_bboxes_labels", "gt_ignore_flags"],
-        ),
-        keymap={"img": "image", "gt_bboxes": "bboxes"},
-    ),
+    # dict(
+    #     type="mmdet.Albu",
+    #     transforms=_base_.albu_train_transforms,
+    #     bbox_params=dict(
+    #         type="BboxParams",
+    #         format="pascal_voc",
+    #         label_fields=["gt_bboxes_labels", "gt_ignore_flags"],
+    #     ),
+    #     keymap={"img": "image", "gt_bboxes": "bboxes"},
+    # ),
     # dict(type="YOLOv5HSVRandomAug"),
     # dict(type="mmdet.RandomFlip", prob=0.5),
-    dict(
-        type="mmdet.PackDetInputs",
-        meta_keys=(
-            "img_id",
-            "img_path",
-            "ori_shape",
-            "img_shape",
-            "flip",
-            "flip_direction",
-        ),
-    ),
+    # dict(
+    #     type="mmdet.PackDetInputs",
+    #     meta_keys=(
+    #         "img_id",
+    #         "img_path",
+    #         "ori_shape",
+    #         "img_shape",
+    #         "flip",
+    #         "flip_direction",
+    #     ),
+    # ),
 ]
 
 _base_.train_dataloader.dataset.pipeline = train_pipeline
