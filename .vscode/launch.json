@@ -62,13 +62,22 @@
       "args": "--threshold=0.5 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
     },
     {
+      "name": "coco_split",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/misc/coco_split.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "--json data/${config:MMYOLO_DATASET}/annotations/result.json --out-dir data/${config:MMYOLO_DATASET}/annotations --ratios 0.8 0.2 0 --shuffle"
+    },
+    {
       "name": "dataset_analysis:train",
       "type": "python",
       "request": "launch",
       "program": "tools/analysis_tools/dataset_analysis.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "--out-dir ./dataset_analysis/${config:MMYOLO_CONFIG}/train configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
+      "args": "--out-dir ./dataset_analysis/${config:MMYOLO_CONFIG}/train ./configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
     },
     {
       "name": "dataset_analysis:val",
@@ -80,7 +89,7 @@
       "args": "--val-dataset --out-dir ./dataset_analysis/${config:MMYOLO_CONFIG}/val configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
     },
     {
-      "name": "browse_coco_json-train",
+      "name": "browse_coco_json:train",
       "type": "python",
       "request": "launch",
       "console": "integratedTerminal",
@@ -89,7 +98,7 @@
         "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}"
       },
       "program": "tools/analysis_tools/browse_coco_json.py",
-      "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/train.json --shuffle --wait-time 100 --category-names 115_1way_ds_w_motor"
+      "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/train.json --shuffle --wait-time 100"
     },
     {
       "name": "browe_coco_json:val",
@@ -98,7 +107,25 @@
       "program": "tools/analysis_tools/browse_coco_json.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/val.json --shuffle --wait-time 10 --category-names 115_1way_ds_w_motor"
+      "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/val.json --shuffle"
+    },
+    {
+      "name": "browse_dataset:train",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/analysis_tools/browse_dataset.py",
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
+    },
+    {
+      "name": "get_a_sample:train",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/asdr/get_a_sample.py",
+      "args": "--dir data/${config:MMYOLO_DATASET} --ann annotations/train.json --out dataset_analysis/${config:MMYOLO_DATASET} --class-name 11522_tx_ynyn0d1"
     }
   ]
 }
