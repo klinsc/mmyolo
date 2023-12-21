@@ -96,10 +96,10 @@ img_scale = (1280, 1280)  # w h
 # Adaptive anchor based on tools/analysis_tools/optimize_anchors.py
 # python tools/analysis_tools/optimize_anchors.py configs\yolov5\yolov5_s-p6-v62_syncbn_fast_4xb8-150e_asdr6-2-50-1280-split82_1280_anchOptm.py --algorithm k-means --input-shape (1280,1280)
 anchors = [
-    [(9, 11), (16, 8), (15, 24)],
-    [(24, 16), (19, 30), (31, 19)],
-    [(14, 55), (55, 14), (30, 31)],
-    [(27, 54), (53, 27), (71, 71)],
+    [(3, 2), (4, 2), (7, 4)],
+    [(4, 6), (7, 5), (9, 5)],
+    [(3, 15), (8, 8), (14, 5)],
+    [(8, 16), (18, 20), (45, 31)],
 ]
 batch_shapes_cfg = dict(
     img_size=img_scale[0],
