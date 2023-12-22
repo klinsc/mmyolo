@@ -50,10 +50,43 @@ class_name = (
 )
 num_classes = len(class_name)
 palette = [
-    [(19, 19), (19, 32), (32, 19)],
-    [(29, 46), (46, 29), (59, 37)],
-    [(37, 60), (104, 32), (44, 105)],
-    [(83, 62), (146, 146), (246, 250)],
+    (0, 0, 0),
+    (66, 0, 75),
+    (120, 0, 137),
+    (130, 0, 147),
+    (105, 0, 156),
+    (30, 0, 166),
+    (0, 0, 187),
+    (0, 0, 215),
+    (0, 52, 221),
+    (0, 119, 221),
+    (0, 137, 221),
+    (0, 154, 215),
+    (0, 164, 187),
+    (0, 170, 162),
+    (0, 170, 143),
+    (0, 164, 90),
+    (0, 154, 15),
+    (0, 168, 0),
+    (0, 186, 0),
+    (0, 205, 0),
+    (0, 224, 0),
+    (0, 243, 0),
+    (41, 255, 0),
+    (145, 255, 0),
+    (203, 249, 0),
+    (232, 239, 0),
+    (245, 222, 0),
+    (255, 204, 0),
+    (255, 175, 0),
+    (255, 136, 0),
+    (255, 51, 0),
+    (247, 0, 0),
+    (228, 0, 0),
+    (215, 0, 0),
+    (205, 0, 0),
+    (204, 90, 90),
+    (204, 204, 204),
 ]
 metainfo = dict(classes=class_name, palette=palette)
 
@@ -76,8 +109,8 @@ batch_shapes_cfg = dict(
 
 # model related
 max_epochs = 300
-train_batch_size_per_gpu = 16  # 16/12 does not fit in 15GB
-train_num_workers = 8  # 8/6 does not fit in 15GB
+train_batch_size_per_gpu = 1  # 16/12 does not fit in 15GB
+train_num_workers = 1  # 8/6 does not fit in 15GB
 load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_20221027_215044-58865c19.pth"
 model = dict(
     bbox_head=dict(
