@@ -150,13 +150,13 @@ _base_.model.bbox_head.prior_generator.base_sizes = anchors
 
 train_pipeline = [
     *_base_.pre_transform,
-    # dict(
-    #     type="Mosaic",
-    #     img_scale=img_scale,
-    #     pad_val=114.0,
-    #     pre_transform=_base_.pre_transform,
-    #     bbox_clip_border=False,
-    # ),
+    dict(
+        type="Mosaic",
+        img_scale=img_scale,
+        pad_val=114.0,
+        pre_transform=_base_.pre_transform,
+        bbox_clip_border=False,
+    ),
     # dict(
     #     type="YOLOv5RandomAffine",
     #     max_rotate_degree=0.0,
@@ -167,20 +167,18 @@ train_pipeline = [
     #     border_val=(114, 114, 114),
     #     # bbox_clip_border=False, # create bug
     # ), # disable affine for fixing bbox clipped bugs
-    # scale image to a proper size
-    dict(type="YOLOv5KeepRatioResize", scale=img_scale),
-    # dict(
-    #     type="mmdet.Albu",
-    #     transforms=_base_.albu_train_transforms,
-    #     bbox_params=dict(
-    #         type="BboxParams",
-    #         format="pascal_voc",
-    #         label_fields=["gt_bboxes_labels", "gt_ignore_flags"],
-    #     ),
-    #     keymap={"img": "image", "gt_bboxes": "bboxes"},
-    # ),
-    # dict(type="YOLOv5HSVRandomAug"),
-    # dict(type="mmdet.RandomFlip", prob=0.5),
+    dict(
+        type="mmdet.Albu",
+        transforms=_base_.albu_train_transforms,
+        bbox_params=dict(
+            type="BboxParams",
+            format="pascal_voc",
+            label_fields=["gt_bboxes_labels", "gt_ignore_flags"],
+        ),
+        keymap={"img": "image", "gt_bboxes": "bboxes"},
+    ),
+    dict(type="YOLOv5HSVRandomAug"),
+    dict(type="mmdet.RandomFlip", prob=0.5),
     dict(
         type="mmdet.PackDetInputs",
         meta_keys=(
