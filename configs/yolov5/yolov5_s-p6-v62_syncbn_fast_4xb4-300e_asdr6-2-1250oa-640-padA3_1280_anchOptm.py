@@ -150,13 +150,13 @@ _base_.model.bbox_head.prior_generator.base_sizes = anchors
 
 train_pipeline = [
     *_base_.pre_transform,
-    # dict(
-    #     type="Mosaic",
-    #     img_scale=img_scale,
-    #     pad_val=114.0,
-    #     pre_transform=_base_.pre_transform,
-    #     bbox_clip_border=False,
-    # ),
+    dict(
+        type="Mosaic",
+        img_scale=img_scale,
+        pad_val=114.0,
+        pre_transform=_base_.pre_transform,
+        bbox_clip_border=False,
+    ),
     # dict(
     #     type="YOLOv5RandomAffine",
     #     max_rotate_degree=0.0,
@@ -177,8 +177,8 @@ train_pipeline = [
         ),
         keymap={"img": "image", "gt_bboxes": "bboxes"},
     ),
-    # dict(type="YOLOv5HSVRandomAug"),
-    # dict(type="mmdet.RandomFlip", prob=0.5),
+    dict(type="YOLOv5HSVRandomAug"),
+    dict(type="mmdet.RandomFlip", prob=0.5),
     dict(
         type="mmdet.PackDetInputs",
         meta_keys=(
@@ -186,8 +186,8 @@ train_pipeline = [
             "img_path",
             "ori_shape",
             "img_shape",
-            # "flip",
-            # "flip_direction",
+            "flip",
+            "flip_direction",
         ),
     ),
 ]
