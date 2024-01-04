@@ -13,7 +13,7 @@
       "justMyCode": false
     },
     {
-      "name": "trainYOLO-ASDR",
+      "name": "MMYOLO:train",
       "type": "python",
       "request": "launch",
       "program": "tools/train.py",
@@ -22,10 +22,10 @@
       "env": {
         "MMYOLO_TEST": "true"
       },
-      "args": "configs/rtmdet/rtmdet_tiny_fast_1xb12-40e_cat.py"
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
     },
     {
-      "name": "testYOLO-ASDR",
+      "name": "MMYOLO:test",
       "type": "python",
       "request": "launch",
       "program": "tools/test.py",
@@ -59,7 +59,7 @@
         "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}",
         "MMYOLO_TEST": "true"
       },
-      "args": "--threshold=0.5 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
+      "args": "--threshold=0.3 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
     },
     {
       "name": "coco_split",
@@ -101,7 +101,7 @@
       "args": "--img-dir data/${config:MMYOLO_DATASET}/images --ann-file data/${config:MMYOLO_DATASET}/annotations/train.json --shuffle --wait-time 100"
     },
     {
-      "name": "browe_coco_json:val",
+      "name": "browse_coco_json:val",
       "type": "python",
       "request": "launch",
       "program": "tools/analysis_tools/browse_coco_json.py",
@@ -116,7 +116,16 @@
       "console": "integratedTerminal",
       "justMyCode": false,
       "program": "tools/analysis_tools/browse_dataset.py",
-      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --out-dir output/train"
+    },
+    {
+      "name": "browse_dataset:val",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/analysis_tools/browse_dataset.py",
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --out-dir output/val --phase val"
     },
     {
       "name": "get_a_sample:train",
@@ -126,6 +135,24 @@
       "justMyCode": false,
       "program": "tools/asdr/get_a_sample.py",
       "args": "--dir data/${config:MMYOLO_DATASET} --ann annotations/train.json --out dataset_analysis/${config:MMYOLO_DATASET} --class-name 11522_tx_ynyn0d1"
+    },
+    {
+      "name": "yolo2coco",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/dataset_converters/yolo2coco.py",
+      "args": "data/${config:MMYOLO_DATASET}"
+    },
+    {
+      "name": "optimize_anchors",
+      "type": "python",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/analysis_tools/optimize_anchors.py",
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
     }
   ]
 }
