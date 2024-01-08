@@ -152,6 +152,15 @@ train_pipeline = [
     # *_base_.pre_transform,
     dict(type="LoadImageFromFile", backend_args=_base_.backend_args),
     dict(type="LoadAnnotations", with_bbox=True),
+    dict(
+        type="YOLOv5KeepRatioResize", scale=img_scale
+    ),  # This transform resizes the input image according to scale. Bboxes (if existed) are then resized with the same scale factor.
+    dict(
+        type="LetterResize",
+        scale=img_scale,
+        allow_scale_up=False,
+        pad_val=dict(img=114),
+    ),  # Resize and pad image while meeting stride-multiple constraints
     # dict(
     #     type="Mosaic",
     #     img_scale=img_scale,
