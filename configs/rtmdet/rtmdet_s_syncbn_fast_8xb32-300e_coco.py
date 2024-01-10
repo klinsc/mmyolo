@@ -38,45 +38,63 @@ model = dict(
 train_pipeline = [
     dict(type="LoadImageFromFile", backend_args=_base_.backend_args),
     dict(type="LoadAnnotations", with_bbox=True),
+    # dict(
+    #     type="Mosaic",
+    #     img_scale=img_scale,
+    #     use_cached=True,
+    #     max_cached_images=mosaic_max_cached_images,
+    #     pad_val=114.0,
+    # ),
+    # dict(
+    #     type="mmdet.RandomResize",
+    #     # img_scale is (width, height)
+    #     scale=(img_scale[0] * 2, img_scale[1] * 2),
+    #     ratio_range=random_resize_ratio_range,  # note
+    #     resize_type="mmdet.Resize",
+    #     keep_ratio=True,
+    # ),
+    # dict(type="mmdet.RandomCrop", crop_size=img_scale),
+    # dict(type="mmdet.YOLOXHSVRandomAug"),
+    # dict(type="mmdet.RandomFlip", prob=0.5),
+    # dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
+    # dict(
+    #     type="YOLOv5MixUp", use_cached=True, max_cached_images=mixup_max_cached_images
+    # ),
     dict(
-        type="Mosaic",
-        img_scale=img_scale,
-        use_cached=True,
-        max_cached_images=mosaic_max_cached_images,
-        pad_val=114.0,
-    ),
+        type="YOLOv5KeepRatioResize", scale=img_scale
+    ),  # This transform resizes the input image according to scale. Bboxes (if existed) are then resized with the same scale factor.
     dict(
-        type="mmdet.RandomResize",
-        # img_scale is (width, height)
-        scale=(img_scale[0] * 2, img_scale[1] * 2),
-        ratio_range=random_resize_ratio_range,  # note
-        resize_type="mmdet.Resize",
-        keep_ratio=True,
-    ),
-    dict(type="mmdet.RandomCrop", crop_size=img_scale),
-    dict(type="mmdet.YOLOXHSVRandomAug"),
-    dict(type="mmdet.RandomFlip", prob=0.5),
-    dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
-    dict(
-        type="YOLOv5MixUp", use_cached=True, max_cached_images=mixup_max_cached_images
-    ),
+        type="LetterResize",
+        scale=img_scale,
+        allow_scale_up=False,
+        pad_val=dict(img=114),
+    ),  # Resize and pad image while meeting stride-multiple constraints
     dict(type="mmdet.PackDetInputs"),
 ]
 
 train_pipeline_stage2 = [
     dict(type="LoadImageFromFile", backend_args=_base_.backend_args),
     dict(type="LoadAnnotations", with_bbox=True),
+    # dict(
+    #     type="mmdet.RandomResize",
+    #     scale=img_scale,
+    #     ratio_range=random_resize_ratio_range,  # note
+    #     resize_type="mmdet.Resize",
+    #     keep_ratio=True,
+    # ),
+    # dict(type="mmdet.RandomCrop", crop_size=img_scale),
+    # dict(type="mmdet.YOLOXHSVRandomAug"),
+    # dict(type="mmdet.RandomFlip", prob=0.5),
+    # dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
     dict(
-        type="mmdet.RandomResize",
+        type="YOLOv5KeepRatioResize", scale=img_scale
+    ),  # This transform resizes the input image according to scale. Bboxes (if existed) are then resized with the same scale factor.
+    dict(
+        type="LetterResize",
         scale=img_scale,
-        ratio_range=random_resize_ratio_range,  # note
-        resize_type="mmdet.Resize",
-        keep_ratio=True,
-    ),
-    dict(type="mmdet.RandomCrop", crop_size=img_scale),
-    dict(type="mmdet.YOLOXHSVRandomAug"),
-    dict(type="mmdet.RandomFlip", prob=0.5),
-    dict(type="mmdet.Pad", size=img_scale, pad_val=dict(img=(114, 114, 114))),
+        allow_scale_up=False,
+        pad_val=dict(img=114),
+    ),  # Resize and pad image while meeting stride-multiple constraints
     dict(type="mmdet.PackDetInputs"),
 ]
 
