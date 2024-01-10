@@ -110,7 +110,7 @@ batch_shapes_cfg = dict(
 # model related
 max_epochs = 300
 train_batch_size_per_gpu = 16  # 16/12 does not fit in 15GB
-train_num_workers = 8  # 8/6 does not fit in 15GB
+train_num_workers = 4  # 8/6 does not fit in 15GB
 load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_20221027_215044-58865c19.pth"
 model = dict(
     bbox_head=dict(
@@ -149,25 +149,25 @@ _base_.model.bbox_head.loss_obj.loss_weight = 1.0 * ((img_scale[1] / 640) ** 2)
 _base_.model.bbox_head.prior_generator.base_sizes = anchors
 
 train_pipeline = [
-    # *_base_.pre_transform,
-    dict(type="LoadImageFromFile", backend_args=_base_.backend_args),
-    dict(type="LoadAnnotations", with_bbox=True),
-    dict(
-        type="YOLOv5KeepRatioResize", scale=img_scale
-    ),  # This transform resizes the input image according to scale. Bboxes (if existed) are then resized with the same scale factor.
-    dict(
-        type="LetterResize",
-        scale=img_scale,
-        allow_scale_up=False,
-        pad_val=dict(img=114),
-    ),  # Resize and pad image while meeting stride-multiple constraints
+    *_base_.pre_transform,
+    # dict(type="LoadImageFromFile", backend_args=_base_.backend_args),
+    # dict(type="LoadAnnotations", with_bbox=True),
     # dict(
-    #     type="Mosaic",
-    #     img_scale=img_scale,
-    #     pad_val=114.0,
-    #     pre_transform=_base_.pre_transform,
-    #     bbox_clip_border=False,
-    # ),
+    #     type="YOLOv5KeepRatioResize", scale=img_scale
+    # ),  # This transform resizes the input image according to scale. Bboxes (if existed) are then resized with the same scale factor.
+    # dict(
+    #     type="LetterResize",
+    #     scale=img_scale,
+    #     allow_scale_up=False,
+    #     pad_val=dict(img=114),
+    # ),  # Resize and pad image while meeting stride-multiple constraints
+    dict(
+        type="Mosaic",
+        img_scale=img_scale,
+        pad_val=114.0,
+        pre_transform=_base_.pre_transform,
+        bbox_clip_border=False,
+    ),
     # dict(
     #     type="YOLOv5RandomAffine",
     #     max_rotate_degree=0.0,
@@ -178,18 +178,18 @@ train_pipeline = [
     #     border_val=(114, 114, 114),
     #     # bbox_clip_border=False, # create bug
     # ), # disable affine for fixing bbox clipped bugs
-    # dict(
-    #     type="mmdet.Albu",
-    #     transforms=_base_.albu_train_transforms,
-    #     bbox_params=dict(
-    #         type="BboxParams",
-    #         format="pascal_voc",
-    #         label_fields=["gt_bboxes_labels", "gt_ignore_flags"],
-    #     ),
-    #     keymap={"img": "image", "gt_bboxes": "bboxes"},
-    # ),
-    # dict(type="YOLOv5HSVRandomAug"),
-    # dict(type="mmdet.RandomFlip", prob=0.5),
+    dict(
+        type="mmdet.Albu",
+        transforms=_base_.albu_train_transforms,
+        bbox_params=dict(
+            type="BboxParams",
+            format="pascal_voc",
+            label_fields=["gt_bboxes_labels", "gt_ignore_flags"],
+        ),
+        keymap={"img": "image", "gt_bboxes": "bboxes"},
+    ),
+    dict(type="YOLOv5HSVRandomAug"),
+    dict(type="mmdet.RandomFlip", prob=0.5),
     dict(
         type="mmdet.PackDetInputs",
         meta_keys=(
