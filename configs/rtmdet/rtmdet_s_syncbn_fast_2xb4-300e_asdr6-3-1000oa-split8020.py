@@ -88,7 +88,7 @@ num_epochs_stage2 = 20
 
 max_epochs = 300
 train_batch_size_per_gpu = 4
-train_num_workers = 4
+train_num_workers = 2
 val_batch_size_per_gpu = 1
 val_num_workers = 2
 
