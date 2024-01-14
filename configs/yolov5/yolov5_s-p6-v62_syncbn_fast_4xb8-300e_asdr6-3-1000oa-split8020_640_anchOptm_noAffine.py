@@ -1,4 +1,4 @@
-_base_ = "yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco.py"
+_base_ = "yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_640.py"
 
 # data related
 data_root = "data/asdr6-3-1000oa-split8020/"
