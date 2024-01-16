@@ -161,7 +161,7 @@
       "console": "integratedTerminal",
       "justMyCode": false,
       "program": "tools/analysis_tools/optimize_anchors.py",
-      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py"
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --input-shape 1280 1280"
     }
   ]
 }
