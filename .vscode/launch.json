@@ -10,7 +10,16 @@
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
-      "justMyCode": false
+      "justMyCode": true
+    },
+    {
+      "name": "print_config",
+      "type": "python",
+      "request": "launch",
+      "program": "tools/misc/print_config.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --save-path configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.json"
     },
     {
       "name": "MMYOLO:train",
@@ -34,7 +43,7 @@
       "env": {
         "MMYOLO_TEST": "true"
       },
-      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py models/${config:MMYOLO_MODEL}.pth --out outputs/${config:MMYOLO_OUTPUT}/result.pkl"
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py models/${config:MMYOLO_MODEL}.pth --out outputs/${config:MMYOLO_OUTPUT}/result.pkl --work-dir outputs/${config:MMYOLO_OUTPUT} --json-prefix outputs/${config:MMYOLO_OUTPUT}/result"
     },
     {
       "name": "confusionMatrixYOLO-ASDR",
@@ -59,7 +68,7 @@
         "MMYOLO_OUTPUT": "${config:MMYOLO_OUTPUT}",
         "MMYOLO_TEST": "true"
       },
-      "args": "--threshold=0.3 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
+      "args": "--threshold=0.5 --config=configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --checkpoint models/${config:MMYOLO_MODEL}.pth --image=${config:MMYOLO_IMAGE}"
     },
     {
       "name": "coco_split",
