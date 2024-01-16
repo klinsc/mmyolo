@@ -96,10 +96,10 @@ img_scale = (1280, 1280)  # w h
 # Adaptive anchor based on tools/analysis_tools/optimize_anchors.py
 # python tools/analysis_tools/optimize_anchors.py configs/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_asdr6_2_100_autosplit.py --algorithm k-means --input-shape (1280,1280)
 anchors = [
-    [(6, 5), (5, 8), (8, 12)],
-    [(12, 8), (16, 10), (10, 16)],
-    [(7, 29), (28, 12), (16, 26)],
-    [(32, 31), (39, 41), (67, 65)],
+    [(5, 5), (8, 4), (5, 8)],
+    [(12, 8), (8, 12), (16, 10)],
+    [(10, 16), (7, 29), (28, 12)],
+    [(16, 26), (32, 31), (41, 43)],
 ]
 batch_shapes_cfg = dict(
     img_size=img_scale[0],
@@ -109,8 +109,8 @@ batch_shapes_cfg = dict(
 
 # model related
 max_epochs = 300
-train_batch_size_per_gpu = 8  # 16/12 does not fit in 15GB
-train_num_workers = 4  # 8/6 does not fit in 15GB
+train_batch_size_per_gpu = 32  # 16/12 does not fit in 15GB
+train_num_workers = 8  # 8/6 does not fit in 15GB
 load_from = "https://download.openmmlab.com/mmyolo/v0/yolov5/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco/yolov5_s-p6-v62_syncbn_fast_8xb16-300e_coco_20221027_215044-58865c19.pth"
 model = dict(
     bbox_head=dict(
