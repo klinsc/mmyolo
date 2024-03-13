@@ -13,7 +13,11 @@ from pycocotools.cocoeval import COCOeval
 def makeplot(rs, ps, outDir, class_name, iou_type):
     cs = np.vstack(
         [
-            np.ones((2, 3)),
+            # np.ones((2, 3)),
+            # make color #cccccc with rgb normalized to [0,1]
+            np.array([0.80, 0.80, 0.80]),
+            # make color #999999 with rgb normalized to [0,1]
+            np.array([0.60, 0.60, 0.60]),
             np.array([0.31, 0.51, 0.74]),
             np.array([0.75, 0.31, 0.30]),
             np.array([0.36, 0.90, 0.38]),
@@ -71,6 +75,20 @@ def autolabel(ax, rects):
 
 
 def makebarplot(rs, ps, outDir, class_name, iou_type):
+    cs = np.vstack(
+        [
+            # np.ones((2, 3)),
+            # make color #cccccc with rgb normalized to [0,1]
+            np.array([0.80, 0.80, 0.80]),
+            # make color #999999 with rgb normalized to [0,1]
+            np.array([0.60, 0.60, 0.60]),
+            np.array([0.31, 0.51, 0.74]),
+            np.array([0.75, 0.31, 0.30]),
+            np.array([0.36, 0.90, 0.38]),
+            np.array([0.50, 0.39, 0.64]),
+            np.array([1, 0.6, 0]),
+        ]
+    )
     areaNames = ["allarea", "small", "medium", "large"]
     types = ["C75", "C50", "Loc", "Sim", "Oth", "BG", "FN"]
     fig, ax = plt.subplots()
@@ -87,6 +105,7 @@ def makebarplot(rs, ps, outDir, class_name, iou_type):
                 aps,
                 width / len(types),
                 label=types[i],
+                color=cs[i],
             )
         )
 
