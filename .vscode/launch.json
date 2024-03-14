@@ -5,8 +5,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "eval_metric",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "tools/analysis_tools/eval_metric.py",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "args": "outputs/${config:MMYOLO_OUTPUT}/result.bbox.json outputs/${config:MMYOLO_OUTPUT} --ann data/${config:MMYOLO_DATASET}/annotations/val.json"
+    },
+    {
       "name": "Python: Current File",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "${file}",
       "console": "integratedTerminal",
@@ -14,7 +23,7 @@
     },
     {
       "name": "print_config",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/misc/print_config.py",
       "console": "integratedTerminal",
@@ -23,7 +32,7 @@
     },
     {
       "name": "MMYOLO:train",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/train.py",
       "console": "integratedTerminal",
@@ -35,7 +44,7 @@
     },
     {
       "name": "MMYOLO:test",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/test.py",
       "console": "integratedTerminal",
@@ -47,7 +56,7 @@
     },
     {
       "name": "confusionMatrixYOLO-ASDR",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/analysis_tools/confusion_matrix.py",
       "console": "integratedTerminal",
@@ -59,7 +68,7 @@
     },
     {
       "name": "inference-ASDR",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/asdr/inference.py",
       "console": "integratedTerminal",
@@ -72,7 +81,7 @@
     },
     {
       "name": "coco_split",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/misc/coco_split.py",
       "console": "integratedTerminal",
@@ -81,7 +90,7 @@
     },
     {
       "name": "dataset_analysis:train",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/analysis_tools/dataset_analysis.py",
       "console": "integratedTerminal",
@@ -90,7 +99,7 @@
     },
     {
       "name": "dataset_analysis:val",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/analysis_tools/dataset_analysis.py",
       "console": "integratedTerminal",
@@ -99,7 +108,7 @@
     },
     {
       "name": "browse_coco_json:train",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "console": "integratedTerminal",
       "justMyCode": false,
@@ -111,7 +120,7 @@
     },
     {
       "name": "browse_coco_json:val",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "program": "tools/analysis_tools/browse_coco_json.py",
       "console": "integratedTerminal",
@@ -120,7 +129,7 @@
     },
     {
       "name": "browse_dataset:train",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "console": "integratedTerminal",
       "justMyCode": false,
@@ -129,7 +138,7 @@
     },
     {
       "name": "browse_dataset:val",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "console": "integratedTerminal",
       "justMyCode": false,
@@ -138,7 +147,7 @@
     },
     {
       "name": "get_a_sample:train",
-      "type": "python",
+      "type": "debugpy",
       "request": "launch",
       "console": "integratedTerminal",
       "justMyCode": false,
@@ -146,8 +155,8 @@
       "args": "--dir data/${config:MMYOLO_DATASET} --ann annotations/train.json --out dataset_analysis/${config:MMYOLO_DATASET} --class-name 11522_tx_ynyn0d1"
     },
     {
-      "name": "yolo2coco",
-      "type": "python",
+      "name": "yolo2coco.py",
+      "type": "debugpy",
       "request": "launch",
       "console": "integratedTerminal",
       "justMyCode": false,
@@ -155,13 +164,31 @@
       "args": "data/${config:MMYOLO_DATASET}"
     },
     {
-      "name": "optimize_anchors",
-      "type": "python",
+      "name": "optimize_anchors.py",
+      "type": "debugpy",
       "request": "launch",
       "console": "integratedTerminal",
       "justMyCode": false,
       "program": "tools/analysis_tools/optimize_anchors.py",
       "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --input-shape 1280 1280"
+    },
+    {
+      "name": "coco_error_analysis.py",
+      "type": "debugpy",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/analysis_tools/coco_error_analysis.py",
+      "args": "outputs/${config:MMYOLO_OUTPUT}/result.bbox.json outputs/${config:MMYOLO_OUTPUT} --ann data/${config:MMYOLO_DATASET}/annotations/val.json --extraplots"
+    },
+    {
+      "name": "benchmark.py",
+      "type": "debugpy",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "justMyCode": false,
+      "program": "tools/analysis_tools/benchmark.py",
+      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py models/${config:MMYOLO_MODEL}.pth --work-dir outputs/${config:MMYOLO_OUTPUT} --repeat-num 10"
     }
   ]
 }
