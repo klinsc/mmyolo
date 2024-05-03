@@ -966,5 +966,10 @@
       [204, 90, 90],
       [204, 204, 204]
     ]
-  }
+  },
+  "isTest": false,
+  "vis_backend": [
+    { "type": "LocalVisBackend" },
+    { "type": "WandbVisBackend", "init_kwargs": { "project": "mmyolo-tools" } }
+  ]
 }
