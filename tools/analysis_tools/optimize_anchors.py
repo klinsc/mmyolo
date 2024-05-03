@@ -64,7 +64,7 @@ def parse_args():
         "--input-shape",
         type=int,
         nargs="+",
-        default=[1280, 1280],
+        default=[640, 640],
         help="input image size, represent [width, height]",
     )
     parser.add_argument(
