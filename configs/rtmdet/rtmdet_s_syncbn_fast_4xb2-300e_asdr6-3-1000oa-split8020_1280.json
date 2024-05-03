@@ -21,13 +21,7 @@
   "vis_backends": [{ "type": "LocalVisBackend" }],
   "visualizer": {
     "type": "mmdet.DetLocalVisualizer",
-    "vis_backends": [
-      { "type": "LocalVisBackend" },
-      {
-        "type": "WandbVisBackend",
-        "init_kwargs": { "project": "mmyolo-tools" }
-      }
-    ],
+    "vis_backends": [{ "type": "LocalVisBackend" }],
     "name": "visualizer"
   },
   "log_processor": {
@@ -967,9 +961,6 @@
       [204, 204, 204]
     ]
   },
-  "isTest": false,
-  "vis_backend": [
-    { "type": "LocalVisBackend" },
-    { "type": "WandbVisBackend", "init_kwargs": { "project": "mmyolo-tools" } }
-  ]
+  "isTest": true,
+  "vis_backend": [{ "type": "LocalVisBackend" }]
 }
