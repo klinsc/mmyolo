@@ -87,6 +87,14 @@ def show_bbox_num(cfg, out_dir, fig_set, class_name, class_num):
         f"{out_dir}/{out_name}_bbox_num.jpg", bbox_inches="tight", pad_inches=0.1
     )  # Save Image
     plt.close()
+
+    # save bbox_num.csv
+    bbox_num_csv = os.path.join(out_dir, f"{out_name}_bbox_num.csv")
+    with open(bbox_num_csv, "w") as f:
+        f.write("class_name,bbox_num\n")
+        for i in range(len(class_name)):
+            f.write(f"{class_name[i]},{class_num[i]}\n")
+
     print(f"End and save in {out_dir}/{out_name}_bbox_num.jpg")
 
 
@@ -503,6 +511,10 @@ def main():
         raise RuntimeError("Please enter the correct func name, e.g., show_bbox_num")
 
     print_total_image_num(dataset)
+
+    print_area_of_all_bboxes_order_ascend(
+        cfg, args.out_dir, fig_set, class_name, class_num, classes_idx
+    )
 
 
 if __name__ == "__main__":
