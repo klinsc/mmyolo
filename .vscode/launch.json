@@ -28,7 +28,8 @@
       "program": "tools/misc/print_config.py",
       "console": "integratedTerminal",
       "justMyCode": false,
-      "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --save-path configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.json"
+      "envFile": "${workspaceFolder}/.env",
+      "args": "configs/${env:MMYOLO_PARENT}/${env:MMYOLO_CONFIG}.py --save-path configs/${env:MMYOLO_PARENT}/${env:MMYOLO_CONFIG}.json"
     },
     {
       "name": "MMYOLO:train",
