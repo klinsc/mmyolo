@@ -28,6 +28,9 @@
       "program": "tools/misc/print_config.py",
       "console": "integratedTerminal",
       "justMyCode": false,
+      "env": {
+        "MMYOLO_TEST": "true"
+      },
       "args": "configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.py --save-path configs/${config:MMYOLO_PARENT}/${config:MMYOLO_CONFIG}.json"
     },
     {
