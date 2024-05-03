@@ -1,4 +1,4 @@
-_base_ = "rtmdet_s_syncbn_fast_8xb32-300e_coco.py"
+_base_ = "rtmdet_s_syncbn_fast_8xb32-300e_coco_1280.py"
 
 # -----data related-----
 data_root = "data/asdr6-3-1000oa-split8020/"

@@ -21,13 +21,7 @@
   "vis_backends": [{ "type": "LocalVisBackend" }],
   "visualizer": {
     "type": "mmdet.DetLocalVisualizer",
-    "vis_backends": [
-      { "type": "LocalVisBackend" },
-      {
-        "type": "WandbVisBackend",
-        "init_kwargs": { "project": "mmyolo-tools" }
-      }
-    ],
+    "vis_backends": [{ "type": "LocalVisBackend" }],
     "name": "visualizer"
   },
   "log_processor": {
@@ -156,17 +150,17 @@
       ]
     }
   ],
-  "data_root": "data/asdr6_2_200_split82/",
+  "data_root": "data/asdr6-3-1000oa-split8020/",
   "train_ann_file": "annotations/instances_train2017.json",
   "train_data_prefix": "train2017/",
   "val_ann_file": "annotations/instances_val2017.json",
   "val_data_prefix": "val2017/",
   "num_classes": 37,
-  "train_batch_size_per_gpu": 3,
-  "train_num_workers": 2,
+  "train_batch_size_per_gpu": 4,
+  "train_num_workers": 4,
   "persistent_workers": true,
   "base_lr": 0.004,
-  "max_epochs": 150,
+  "max_epochs": 300,
   "num_epochs_stage2": 20,
   "model_test_cfg": {
     "multi_label": true,
@@ -175,7 +169,7 @@
     "nms": { "type": "nms", "iou_threshold": 0.65 },
     "max_per_img": 300
   },
-  "img_scale": [1280, 1280],
+  "img_scale": [640, 640],
   "random_resize_ratio_range": [0.5, 2.0],
   "mosaic_max_cached_images": 40,
   "mixup_max_cached_images": 20,
@@ -185,7 +179,7 @@
   "batch_shapes_cfg": {
     "type": "BatchShapePolicy",
     "batch_size": 32,
-    "img_size": 1280,
+    "img_size": 640,
     "size_divisor": 32,
     "extra_pad_ratio": 0.5
   },
@@ -291,24 +285,24 @@
     { "type": "LoadAnnotations", "with_bbox": true },
     {
       "type": "Mosaic",
-      "img_scale": [1280, 1280],
+      "img_scale": [640, 640],
       "use_cached": true,
       "max_cached_images": 40,
       "pad_val": 114.0
     },
     {
       "type": "mmdet.RandomResize",
-      "scale": [2560, 2560],
+      "scale": [1280, 1280],
       "ratio_range": [0.5, 2.0],
       "resize_type": "mmdet.Resize",
       "keep_ratio": true
     },
-    { "type": "mmdet.RandomCrop", "crop_size": [1280, 1280] },
+    { "type": "mmdet.RandomCrop", "crop_size": [640, 640] },
     { "type": "mmdet.YOLOXHSVRandomAug" },
     { "type": "mmdet.RandomFlip", "prob": 0.5 },
     {
       "type": "mmdet.Pad",
-      "size": [1280, 1280],
+      "size": [640, 640],
       "pad_val": { "img": [114, 114, 114] }
     },
     { "type": "YOLOv5MixUp", "use_cached": true, "max_cached_images": 20 },
@@ -319,27 +313,27 @@
     { "type": "LoadAnnotations", "with_bbox": true },
     {
       "type": "mmdet.RandomResize",
-      "scale": [1280, 1280],
+      "scale": [640, 640],
       "ratio_range": [0.5, 2.0],
       "resize_type": "mmdet.Resize",
       "keep_ratio": true
     },
-    { "type": "mmdet.RandomCrop", "crop_size": [1280, 1280] },
+    { "type": "mmdet.RandomCrop", "crop_size": [640, 640] },
     { "type": "mmdet.YOLOXHSVRandomAug" },
     { "type": "mmdet.RandomFlip", "prob": 0.5 },
     {
       "type": "mmdet.Pad",
-      "size": [1280, 1280],
+      "size": [640, 640],
       "pad_val": { "img": [114, 114, 114] }
     },
     { "type": "mmdet.PackDetInputs" }
   ],
   "test_pipeline": [
     { "type": "LoadImageFromFile", "backend_args": null },
-    { "type": "YOLOv5KeepRatioResize", "scale": [1280, 1280] },
+    { "type": "YOLOv5KeepRatioResize", "scale": [640, 640] },
     {
       "type": "LetterResize",
-      "scale": [1280, 1280],
+      "scale": [640, 640],
       "allow_scale_up": false,
       "pad_val": { "img": 114 }
     },
@@ -357,15 +351,15 @@
     }
   ],
   "train_dataloader": {
-    "batch_size": 3,
-    "num_workers": 2,
+    "batch_size": 4,
+    "num_workers": 4,
     "persistent_workers": true,
     "pin_memory": true,
     "collate_fn": { "type": "yolov5_collate" },
     "sampler": { "type": "DefaultSampler", "shuffle": true },
     "dataset": {
       "type": "YOLOv5CocoDataset",
-      "data_root": "data/asdr6_2_200_split82/",
+      "data_root": "data/asdr6-3-1000oa-split8020/",
       "ann_file": "annotations/train.json",
       "data_prefix": { "img": "images/" },
       "filter_cfg": { "filter_empty_gt": true, "min_size": 32 },
@@ -374,24 +368,24 @@
         { "type": "LoadAnnotations", "with_bbox": true },
         {
           "type": "Mosaic",
-          "img_scale": [1280, 1280],
+          "img_scale": [640, 640],
           "use_cached": true,
           "max_cached_images": 40,
           "pad_val": 114.0
         },
         {
           "type": "mmdet.RandomResize",
-          "scale": [2560, 2560],
+          "scale": [1280, 1280],
           "ratio_range": [0.5, 2.0],
           "resize_type": "mmdet.Resize",
           "keep_ratio": true
         },
-        { "type": "mmdet.RandomCrop", "crop_size": [1280, 1280] },
+        { "type": "mmdet.RandomCrop", "crop_size": [640, 640] },
         { "type": "mmdet.YOLOXHSVRandomAug" },
         { "type": "mmdet.RandomFlip", "prob": 0.5 },
         {
           "type": "mmdet.Pad",
-          "size": [1280, 1280],
+          "size": [640, 640],
           "pad_val": { "img": [114, 114, 114] }
         },
         { "type": "YOLOv5MixUp", "use_cached": true, "max_cached_images": 20 },
@@ -488,23 +482,23 @@
     "sampler": { "type": "DefaultSampler", "shuffle": false },
     "dataset": {
       "type": "YOLOv5CocoDataset",
-      "data_root": "data/asdr6_2_200_split82/",
+      "data_root": "data/asdr6-3-1000oa-split8020/",
       "ann_file": "annotations/val.json",
       "data_prefix": { "img": "images/" },
       "test_mode": true,
       "batch_shapes_cfg": {
         "type": "BatchShapePolicy",
         "batch_size": 32,
-        "img_size": 1280,
+        "img_size": 640,
         "size_divisor": 32,
         "extra_pad_ratio": 0.5
       },
       "pipeline": [
         { "type": "LoadImageFromFile", "backend_args": null },
-        { "type": "YOLOv5KeepRatioResize", "scale": [1280, 1280] },
+        { "type": "YOLOv5KeepRatioResize", "scale": [640, 640] },
         {
           "type": "LetterResize",
-          "scale": [1280, 1280],
+          "scale": [640, 640],
           "allow_scale_up": false,
           "pad_val": { "img": 114 }
         },
@@ -612,23 +606,23 @@
     "sampler": { "type": "DefaultSampler", "shuffle": false },
     "dataset": {
       "type": "YOLOv5CocoDataset",
-      "data_root": "data/asdr6_2_200_split82/",
+      "data_root": "data/asdr6-3-1000oa-split8020/",
       "ann_file": "annotations/val.json",
       "data_prefix": { "img": "images/" },
       "test_mode": true,
       "batch_shapes_cfg": {
         "type": "BatchShapePolicy",
         "batch_size": 32,
-        "img_size": 1280,
+        "img_size": 640,
         "size_divisor": 32,
         "extra_pad_ratio": 0.5
       },
       "pipeline": [
         { "type": "LoadImageFromFile", "backend_args": null },
-        { "type": "YOLOv5KeepRatioResize", "scale": [1280, 1280] },
+        { "type": "YOLOv5KeepRatioResize", "scale": [640, 640] },
         {
           "type": "LetterResize",
-          "scale": [1280, 1280],
+          "scale": [640, 640],
           "allow_scale_up": false,
           "pad_val": { "img": 114 }
         },
@@ -730,13 +724,13 @@
   "val_evaluator": {
     "type": "mmdet.CocoMetric",
     "proposal_nums": [100, 1, 10],
-    "ann_file": "data/asdr6_2_200_split82/annotations/val.json",
+    "ann_file": "data/asdr6-3-1000oa-split8020/annotations/val.json",
     "metric": "bbox"
   },
   "test_evaluator": {
     "type": "mmdet.CocoMetric",
     "proposal_nums": [100, 1, 10],
-    "ann_file": "data/asdr6_2_200_split82/annotations/val.json",
+    "ann_file": "data/asdr6-3-1000oa-split8020/annotations/val.json",
     "metric": "bbox"
   },
   "optim_wrapper": {
@@ -759,9 +753,9 @@
     {
       "type": "CosineAnnealingLR",
       "eta_min": 0.0002,
-      "begin": 75,
-      "end": 150,
-      "T_max": 75,
+      "begin": 150,
+      "end": 300,
+      "T_max": 150,
       "by_epoch": true,
       "convert_to_iter_based": true
     }
@@ -777,23 +771,23 @@
     },
     {
       "type": "mmdet.PipelineSwitchHook",
-      "switch_epoch": 130,
+      "switch_epoch": 280,
       "switch_pipeline": [
         { "type": "LoadImageFromFile", "backend_args": null },
         { "type": "LoadAnnotations", "with_bbox": true },
         {
           "type": "mmdet.RandomResize",
-          "scale": [1280, 1280],
+          "scale": [640, 640],
           "ratio_range": [0.5, 2.0],
           "resize_type": "mmdet.Resize",
           "keep_ratio": true
         },
-        { "type": "mmdet.RandomCrop", "crop_size": [1280, 1280] },
+        { "type": "mmdet.RandomCrop", "crop_size": [640, 640] },
         { "type": "mmdet.YOLOXHSVRandomAug" },
         { "type": "mmdet.RandomFlip", "prob": 0.5 },
         {
           "type": "mmdet.Pad",
-          "size": [1280, 1280],
+          "size": [640, 640],
           "pad_val": { "img": [114, 114, 114] }
         },
         { "type": "mmdet.PackDetInputs" }
@@ -802,7 +796,7 @@
   ],
   "train_cfg": {
     "type": "EpochBasedTrainLoop",
-    "max_epochs": 150,
+    "max_epochs": 300,
     "val_interval": 10,
     "dynamic_intervals": [[280, 1]]
   },
@@ -966,5 +960,7 @@
       [204, 90, 90],
       [204, 204, 204]
     ]
-  }
+  },
+  "isTest": true,
+  "vis_backend": [{ "type": "LocalVisBackend" }]
 }
