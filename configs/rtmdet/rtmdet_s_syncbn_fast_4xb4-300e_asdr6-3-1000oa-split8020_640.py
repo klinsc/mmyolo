@@ -154,9 +154,21 @@ default_hooks = dict(
     logger=dict(type="LoggerHook", interval=5),
 )
 train_cfg = dict(max_epochs=max_epochs, val_interval=10)
-visualizer = dict(
-    vis_backends=[
+
+# visualization config
+import os
+
+isTest = os.environ.get("MMYOLO_TEST", "false").lower() == "true"
+vis_backend = None
+if isTest:
+    vis_backend = [dict(type="LocalVisBackend")]
+else:
+    vis_backend = [
         dict(type="LocalVisBackend"),
         dict(type="WandbVisBackend", init_kwargs=dict(project="mmyolo-tools")),
     ]
-)  # noqa
+
+# visualization config
+visualizer = dict(
+    vis_backends=vis_backend,
+)
