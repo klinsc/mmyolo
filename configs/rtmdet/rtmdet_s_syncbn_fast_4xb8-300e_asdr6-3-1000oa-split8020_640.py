@@ -1,4 +1,4 @@
-_base_ = "rtmdet_s_syncbn_fast_8xb32-300e_coco_1280.py"
+_base_ = "rtmdet_s_syncbn_fast_8xb32-300e_coco_640.py"
 
 # -----data related-----
 data_root = "data/asdr6-3-1000oa-split8020/"
@@ -87,7 +87,7 @@ metainfo = dict(classes=class_name, palette=palette)
 num_epochs_stage2 = 20
 
 max_epochs = 300
-train_batch_size_per_gpu = 2
+train_batch_size_per_gpu = 8
 train_num_workers = 4
 val_batch_size_per_gpu = 1
 val_num_workers = 2

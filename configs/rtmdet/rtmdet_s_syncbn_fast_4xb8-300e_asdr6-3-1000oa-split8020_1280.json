@@ -156,7 +156,7 @@
   "val_ann_file": "annotations/instances_val2017.json",
   "val_data_prefix": "val2017/",
   "num_classes": 37,
-  "train_batch_size_per_gpu": 2,
+  "train_batch_size_per_gpu": 8,
   "train_num_workers": 4,
   "persistent_workers": true,
   "base_lr": 0.004,
@@ -351,7 +351,7 @@
     }
   ],
   "train_dataloader": {
-    "batch_size": 2,
+    "batch_size": 8,
     "num_workers": 4,
     "persistent_workers": true,
     "pin_memory": true,
